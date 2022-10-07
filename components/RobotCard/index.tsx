@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Robot } from "../../store/reducers/robot";
 
@@ -22,6 +23,12 @@ interface Props {
 }
 
 export default function RobotCard({ data }: Props) {
+  const router = useRouter();
+
+  const handleRedirect = (id: string) => {
+    router.push(`/details/${id}`);
+  };
+
   const StyledImageContainer = styled(Box)`
     display: flex;
     height: 100%;
@@ -41,7 +48,10 @@ export default function RobotCard({ data }: Props) {
   `;
 
   return (
-    <StyledCard sx={{ width: 345, mb: 3 }}>
+    <StyledCard
+      onClick={() => handleRedirect(data.id)}
+      sx={{ width: 345, mb: 3 }}
+    >
       <CardMedia component="img" height="140" image={data.image} alt="robot" />
       <CardContent>
         <Grid container spacing={1}>
@@ -94,7 +104,9 @@ export default function RobotCard({ data }: Props) {
         </Grid>
       </CardContent>
       <CardActions>
-        <Button size="small">Details</Button>
+        <Button onClick={() => handleRedirect(data.id)} size="small">
+          Details
+        </Button>
       </CardActions>
     </StyledCard>
   );

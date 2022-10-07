@@ -4,6 +4,9 @@ const nextConfig = {
   env: {
     APP_URL: process.env.APP_URL,
   },
+  images: {
+    domains: ["robohash.org"],
+  },
 };
 
 module.exports = nextConfig;

@@ -6,6 +6,9 @@ import {
   ROBOT_LIST_FETCH,
   ROBOT_LIST_FETCH_SUCCESS,
   ROBOT_LIST_FETCH_ERROR,
+  ROBOT_DETAIL_FETCH,
+  ROBOT_DETAIL_FETCH_SUCCESS,
+  ROBOT_DETAIL_FETCH_ERROR,
   ROBOT_LIST_DOWNLOAD,
   ROBOT_LIST_DOWNLOAD_SUCCESS,
   ROBOT_LIST_DOWNLOAD_ERROR,
@@ -26,6 +29,26 @@ export const fetchRobots = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROBOT_LIST_FETCH_ERROR,
+      payload: "error message",
+    });
+  }
+};
+
+export const fetchRobotDetail = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ROBOT_DETAIL_FETCH,
+    });
+    const robotData: { data: [] } = await axios.get(
+      `${process.env.APP_URL}/api/robots/${id}`
+    );
+    dispatch({
+      type: ROBOT_DETAIL_FETCH_SUCCESS,
+      payload: robotData.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ROBOT_DETAIL_FETCH_ERROR,
       payload: "error message",
     });
   }
