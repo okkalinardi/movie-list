@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { wrapper } from "../store";
+import { wrapper, store } from "../store/store";
+import { Provider } from "react-redux";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import { colors } from "../styles/variables";
 import Navbar from "../components/Navbar";
@@ -16,8 +17,10 @@ const theme = createTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MuiThemeProvider theme={theme}>
-      <Navbar />
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Navbar />
+        <Component {...pageProps} />
+      </Provider>
     </MuiThemeProvider>
   );
 }
