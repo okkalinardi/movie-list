@@ -6,7 +6,7 @@ const baseUrl = process.env.API_URL;
 const fetchRobots = async (res) => {
   try {
     const robotList = await axios.get(
-      `${baseUrl}?limit=100&select=userName,image,email,gender`
+      `${baseUrl}?limit=100&select=username,image,email,gender,macAddress`
     );
     res.send(robotList.data.users);
   } catch (error) {
