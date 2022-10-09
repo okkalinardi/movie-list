@@ -13,6 +13,10 @@ import {
   ROBOT_LIST_DOWNLOAD_SUCCESS,
   ROBOT_LIST_DOWNLOAD_ERROR,
 } from "../reducers/robot";
+import {
+  OPEN_ERROR_MESSAGE,
+  CLOSE_ERROR_MESSAGE,
+} from "../reducers/errorHandler";
 
 export const fetchRobots = () => async (dispatch) => {
   try {
@@ -29,8 +33,18 @@ export const fetchRobots = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROBOT_LIST_FETCH_ERROR,
-      payload: "error message",
+      payload: error.response.statusText,
     });
+    dispatch({
+      type: OPEN_ERROR_MESSAGE,
+      payload: error.response.statusText,
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: CLOSE_ERROR_MESSAGE,
+      });
+    }, 3000);
   }
 };
 
@@ -49,8 +63,18 @@ export const fetchRobotDetail = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROBOT_DETAIL_FETCH_ERROR,
-      payload: "error message",
+      payload: error.response.statusText,
     });
+    dispatch({
+      type: OPEN_ERROR_MESSAGE,
+      payload: error.response.statusText,
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: CLOSE_ERROR_MESSAGE,
+      });
+    }, 3000);
   }
 };
 
@@ -89,7 +113,17 @@ export const downloadRobotList = (list) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROBOT_LIST_DOWNLOAD_ERROR,
-      payload: "error message",
+      payload: error.response.statusText,
     });
+    dispatch({
+      type: OPEN_ERROR_MESSAGE,
+      payload: error.response.statusText,
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: CLOSE_ERROR_MESSAGE,
+      });
+    }, 3000);
   }
 };

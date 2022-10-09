@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchRobots, downloadRobotList } from "../store/actions/robot";
 import { AppDispatch, AppState } from "../store/store";
 
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import LazyLoad from "react-lazyload";
 import RobotCard from "../components/RobotCard";
 
@@ -44,22 +44,31 @@ export default function Home() {
       <StyledPageTitle gutterBottom variant="h1" align="center">
         Robot List
       </StyledPageTitle>
-      <StyledButtonContainer>
-        <Button
-          onClick={() => dispatch<any>(downloadRobotList(list))}
-          variant="contained"
-          color="primary"
-        >
-          Download List
-        </Button>
-      </StyledButtonContainer>
-      <StyledRobotsContainer>
-        {list.map((item) => (
-          <LazyLoad key={item.id} once>
-            <RobotCard data={item} />
-          </LazyLoad>
-        ))}
-      </StyledRobotsContainer>
+      {loading && (
+        <StyledButtonContainer>
+          <CircularProgress />
+        </StyledButtonContainer>
+      )}
+      {!loading && !error && (
+        <>
+          <StyledButtonContainer>
+            <Button
+              onClick={() => dispatch<any>(downloadRobotList(list))}
+              variant="contained"
+              color="primary"
+            >
+              Download List
+            </Button>
+          </StyledButtonContainer>
+          <StyledRobotsContainer>
+            {list.map((item) => (
+              <LazyLoad key={item.id} once>
+                <RobotCard data={item} />
+              </LazyLoad>
+            ))}
+          </StyledRobotsContainer>
+        </>
+      )}
     </StyledContainerBox>
   );
 }

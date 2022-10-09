@@ -14,6 +14,7 @@ import {
   Divider,
   CardActions,
   Button,
+  CircularProgress,
 } from "@mui/material";
 
 export default function Details() {
@@ -60,80 +61,89 @@ export default function Details() {
   return (
     !loading && (
       <StyledContainerBox>
-        <StyledCard>
-          <Image
-            src={data?.image}
-            alt="robot"
-            width="500px"
-            height="400px"
-            loading="lazy"
-          />
-        </StyledCard>
-        <StyledDetailCard>
-          <Typography
-            variant="h3"
-            align="center"
-            component="div"
-            color="primary"
-            mb={4}
-          >
-            {data?.username}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid xs={6} px={3}>
-              <Typography variant="body1" component="div" color="secondary">
-                Email
-              </Typography>
-              <Divider />
-              <Typography variant="h5" component="div" color="secondary">
-                {data?.email}
-              </Typography>
-            </Grid>
-            <Grid xs={6} px={3}>
+        {loading && <CircularProgress />}
+        {!loading && (
+          <>
+            <StyledCard>
+              <Image
+                src={data?.image}
+                alt="robot"
+                width="500px"
+                height="400px"
+                loading="lazy"
+              />
+            </StyledCard>
+            <StyledDetailCard>
               <Typography
-                variant="body1"
-                align="right"
-                component="div"
-                color="secondary"
-              >
-                Gender
-              </Typography>
-              <Divider />
-              <Typography
-                variant="h5"
-                align="right"
-                component="div"
-                color="secondary"
-              >
-                {data?.gender}
-              </Typography>
-            </Grid>
-            <Grid xs={12} px={3} mt={3}>
-              <Typography
-                variant="body1"
+                variant="h3"
                 align="center"
                 component="div"
-                color="secondary"
+                color="primary"
+                mb={4}
               >
-                Mac Address
+                {data?.username}
               </Typography>
-              <Divider />
-              <Typography
-                variant="h5"
-                align="center"
-                component="div"
-                color="secondary"
-              >
-                {data?.macAddress}
-              </Typography>
-            </Grid>
-          </Grid>
-          <StyledCardActions>
-            <Button onClick={handlePrint} variant="contained" color="primary">
-              print
-            </Button>
-          </StyledCardActions>
-        </StyledDetailCard>
+              <Grid container spacing={2}>
+                <Grid xs={6} px={3}>
+                  <Typography variant="body1" component="div" color="secondary">
+                    Email
+                  </Typography>
+                  <Divider />
+                  <Typography variant="h5" component="div" color="secondary">
+                    {data?.email}
+                  </Typography>
+                </Grid>
+                <Grid xs={6} px={3}>
+                  <Typography
+                    variant="body1"
+                    align="right"
+                    component="div"
+                    color="secondary"
+                  >
+                    Gender
+                  </Typography>
+                  <Divider />
+                  <Typography
+                    variant="h5"
+                    align="right"
+                    component="div"
+                    color="secondary"
+                  >
+                    {data?.gender}
+                  </Typography>
+                </Grid>
+                <Grid xs={12} px={3} mt={3}>
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    component="div"
+                    color="secondary"
+                  >
+                    Mac Address
+                  </Typography>
+                  <Divider />
+                  <Typography
+                    variant="h5"
+                    align="center"
+                    component="div"
+                    color="secondary"
+                  >
+                    {data?.macAddress}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <StyledCardActions>
+                <Button
+                  onClick={handlePrint}
+                  variant="contained"
+                  color="primary"
+                >
+                  print
+                </Button>
+              </StyledCardActions>
+            </StyledDetailCard>
+          </>
+        )}
       </StyledContainerBox>
     )
   );
